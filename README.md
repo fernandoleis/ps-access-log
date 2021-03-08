@@ -13,7 +13,7 @@ Para isso, será necessário uma interface para o upload do arquivo de logs e um
 JDBC URL: jdbc:h2:mem:pslog <br>
 Username: sa <br>
 NO PASSWORD<br>
-**INCLUÍDO O JSON DAS CHAMADAS APIS PARA IMPORT NO POSTMAN (Estudo.postman_collection.json)**
+**INCLUÍDO O JSON DAS CHAMADAS APIS PARA IMPORT NO POSTMAN (Estudo.postman_collection.json) - ps-access-log/upload/main/src/main/resources/accessLog**
 
 ![image](https://user-images.githubusercontent.com/10129476/110340922-8edeec80-8008-11eb-9f3c-2bc2687c2367.png)
 
