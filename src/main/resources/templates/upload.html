@@ -1,13 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>POC Preven Senior</title>
+</head>
 <body>
 
-<h1>Spring Boot file upload example</h1>
+<h1>Tela para Upload de Arquivo de Logs</h1>
 
-<form method="POST" action="/upload" enctype="multipart/form-data">
-    <input type="file" name="file" /><br/><br/>
-    <input type="submit" value="Submit" />
+<form method="post" th:action="@{/accessLog/upload}" enctype="multipart/form-data">
+    <div class="form-group">
+        <input type="file" name="file" class="form-control-file">
+    </div>
+    <button type="submit" class="btn btn-primary">Upload File</button>
 </form>
+<br>
+<br>
+<br>
+<a th:href="@{/index}">Tela Inicial</a>
+<br>
+<a th:href="@{/accessLogs}">Tela para listar e inserir AccessLogs</a>
+<hr>
+<a href="http://localhost:8001/ps-log/api/v1/h2-console">Console Banco H2</a>
+<br>
+<a href="http://localhost:8001/ps-log/api/v1/swagger-ui.html#/">Swagger</a>
 
+<script src="bootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

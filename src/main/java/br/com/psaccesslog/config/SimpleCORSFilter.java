@@ -1,4 +1,4 @@
-package com.ps.pslogcrud.config;
+package br.com.psaccesslog.config;
 
 import org.springframework.stereotype.Component;
 
@@ -28,6 +28,4 @@ public class SimpleCORSFilter implements Filter {
     @Override
     public void destroy() {
     }
-
-
 }

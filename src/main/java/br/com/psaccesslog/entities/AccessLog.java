@@ -1,13 +1,11 @@
-package com.ps.pslogcrud.entities;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+package br.com.psaccesslog.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tb_access_log")
+@Table(name = "TB_ACCESS_LOG")
 public class AccessLog implements Serializable {
 
     private static final long serialVersionUID = 8086754301294240296L;
@@ -16,17 +14,16 @@ public class AccessLog implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
-    @Column(name = "date", nullable = true)
-    private Date date;
+    @Column(name = "DATE", nullable = true)
+    private LocalDateTime date;
 
-    @Column(name = "ip", nullable = false)
+    @Column(name = "IP", nullable = false)
     private String ip;
 
-    @Column(name = "request", nullable = false)
+    @Column(name = "REQUEST", nullable = false)
     private String request;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "STATUS", nullable = false)
     private int status;
 
     @Override
@@ -34,13 +31,13 @@ public class AccessLog implements Serializable {
         return super.hashCode();
     }
 
-    @Column(name = "userAgent", nullable = false)
+    @Column(name = "USERAGENT", nullable = false)
     private String userAgent;
 
     public AccessLog() {
     }
 
-    public AccessLog(Date date, String ip, int status, String userAgent) {
+    public AccessLog(LocalDateTime date, String ip, int status, String userAgent) {
         this.date = date;
         this.ip = ip;
         this.status = status;
@@ -56,11 +53,11 @@ public class AccessLog implements Serializable {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

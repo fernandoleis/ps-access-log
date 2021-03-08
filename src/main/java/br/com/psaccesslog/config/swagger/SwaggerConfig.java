@@ -1,4 +1,4 @@
-package com.ps.pslogcrud.config.swagger;
+package br.com.psaccesslog.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("br.com.psaccesslog"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());

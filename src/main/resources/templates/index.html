@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>POC Preven Senior</title>
 </head>
-<body>
 
+<body>
+<h1>CRUD Para Sitema de Logs</h1>
+<br>
+<br>
+<a th:href="@{/accessLog/upload}">Inserir Arquivo de AccessLogs</a>
+<br>
+<a th:href="@{/accessLogs}">Tela para listar e inserir AccessLogs</a>
+<hr>
+<a href="http://localhost:8001/ps-log/api/v1/h2-console">Console Banco H2</a>
+<br>
+<a href="http://localhost:8001/ps-log/api/v1/swagger-ui.html#/">Swagger</a>
+
+<script src="bootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

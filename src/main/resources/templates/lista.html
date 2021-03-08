@@ -1,18 +1,87 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>POC Preven Senior</title>
 </head>
-
 <body>
-<h1>CRUD Para Sitema de Logs</h1>
-
-<a th:href="@{/accessLog/upload}">Inserir Arquivo de Logs</a>
-<hr>
-<a href="http://localhost:8001/ps-log/api/v1/h2-console">Console Banco H2</a>
+<a th:href="@{/index}">Tela Inicial</a>
 <br>
-<a href="http://localhost:8001/ps-log/api/v1/swagger-ui.html#/">Swagger</a>
+<a th:href="@{/accessLog/upload}">Inserir Arquivo de Logs</a>
+<br>
+<hr>
+<br>
+<h3>Inserir AccessLog</h3>
+<form th:action="@{/accessLog/save}" method="post">
+    <div class="form-group">
+        <label for="ip">IP</label>
+        <input type="text" class="form-control" id="ip" name="ip" placeholder="127.0.0.1"/>
+    </div>
+    <div class="form-group">
+        <label for="request">Requisição</label>
+        <input type="text" class="form-control" id="request" name="request" placeholder="GET / HTTP/1.1"/>
+    </div>
+    <div class="form-group">
+        <label for="status">Status</label>
+        <input type="text" class="form-control" id="status" name="status" placeholder="500"/>
+    </div>
+    <div class="form-group">
+        <label for="userAgent">Máquina</label>
+        <input type="text" class="form-control" id="userAgent" name="userAgent"
+               placeholder="Dalvik/2.1.0 (Linux; U; Android 6.0; vivo 1601 Build/MRA58K)"/>
+    </div>
+    <button type="submit" class="btn btn-success">Inserir</button>
+</form>
+<br>
+<hr>
+<form th:action="@{/accessLogs}" method="GET">
+    <div class="form-group">
+        <label for="ip">Filtrar por IP</label>
+        <input class="form-control" type="text" name="ip" placeholder="192.168.169.194">
+    </div>
+    <button class="btn btn-success" type="submit" id="submit">Filtrar por IP</button>
+</form>
+<hr>
+<h3>Deletar AccessLog</h3>
+<form th:action="@{/accessLog/delete}" method="get">
+    <div class="form-group">
+        <label for="id">Data</label>
+        <input type="number" class="form-control" id="id" name="id" placeholder="insira um id do access log"/>
+    </div>
+    <button type="submit" class="btn btn-danger">Apagar</button>
+</form>
+<hr>
+<h3 align="center">Lista de AccessLog</h3>
+<div class="container">
+    <div id="listaAccessLog">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>date</th>
+                <th>IP</th>
+                <th>Requisição</th>
+                <th>Status</th>
+                <th>Máquina</th>
+            </tr>
+            </thead>
+            <tr th:each="log : ${accessLogs}">
+                <td><span th:text="${log.id}"></span></td>
+                <td><span th:text="${log.date}"></span></td>
+                <td><span th:text="${log.ip}"></span></td>
+                <td><span th:text="${log.request}"></span></td>
+                <td><span th:text="${log.status}"></span></td>
+                <td><span th:text="${log.userAgent}"></span></td>
+            </tr>
+        </table>
+    </div>
 
+</div>
+<br>
+
+<script src="bootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

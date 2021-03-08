@@ -1,56 +1,69 @@
-package com.ps.pslogcrud.service;
+package br.com.psaccesslog.service;
 
-import com.ps.pslogcrud.entities.AccessLog;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import br.com.psaccesslog.entities.AccessLog;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class AccessLogService {
-    public List<AccessLog> deserializeLog(String filePath, String fileName) throws IOException {
-        AccessLog accessLog = null;
-        List<AccessLog> logs = new ArrayList();
+    private Logger logger = Logger.getLogger(this.getClass().getName());
 
+    public List<AccessLog> deserializer(String filePath, String fileName) throws IOException {
+        AccessLog accessLog;
+        List<AccessLog> accessLogList = new ArrayList();
         try (FileInputStream file = new FileInputStream(filePath + "/" + fileName);
-             Scanner fileLog = new Scanner(file);) {
-            while (fileLog.hasNextLine()) {
-                String line = fileLog.nextLine();
-                accessLog = lineToLog(line);
-                logs.add(accessLog);
+             Scanner scanner = new Scanner(file);) {
+            while (scanner.hasNextLine()) {
+                String nextLine = scanner.nextLine();
+                accessLog = parseScanner(nextLine);
+                accessLogList.add(accessLog);
             }
-
         } catch (FileNotFoundException e) {
-//            ErrorDetails errorDetails = new ErrorDetails(new Date(), e.getMessage());
-            new ResponseEntity("teste", HttpStatus.INTERNAL_SERVER_ERROR);
+            logger.log(Level.SEVERE, "Erro ao fazer a encontrar o arquivo de nome : " + fileName, e.getMessage());
         }
-        return logs;
+        return accessLogList;
     }
 
-    public AccessLog lineToLog(String line) {
+    public AccessLog parseScanner(String line) {
         AccessLog accessLog = new AccessLog();
 
         try {
             String[] arrayLog = line.split("\\|");
-
-            Date dateLog = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(arrayLog[0]);
-            accessLog.setDate(dateLog);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+            LocalDateTime dateTime = LocalDateTime.parse(arrayLog[0], formatter);
+            accessLog.setDate(dateTime);
             accessLog.setIp(arrayLog[1]);
             accessLog.setRequest(arrayLog[2]);
             accessLog.setStatus(new Integer(arrayLog[3]));
             accessLog.setUserAgent(arrayLog[4]);
         } catch (Exception e) {
-//            ErrorDetails errorDetails = new ErrorDetails(new Date(), e.getMessage());
-            new ResponseEntity("teste", HttpStatus.INTERNAL_SERVER_ERROR);
+            logger.log(Level.SEVERE, "Erro ao fazer a desserialização do arquivo", e.getMessage());
         }
         return accessLog;
     }
+
+//    public static void main(String[] args) {
+//        //Obtém LocalDate de hoje
+//        LocalDate hoje = LocalDate.now();
+//        System.out.println("LocalDate antes de formatar: " + hoje);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//        String hojeFormatado = hoje.format(formatter);
+//        System.out.println("LocalDate depois de formatar: " + hojeFormatado);
+//        //Obtém LocalDateTime de agora
+//        LocalDateTime agora = LocalDateTime.now();
+//        System.out.println("LocalDateTime antes de formatar: " + agora);
+//        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+//        String agoraFormatado = agora.format(formatter);
+//        System.out.println("LocalDateTime depois de formatar: " + agoraFormatado);
+//    }
 }
