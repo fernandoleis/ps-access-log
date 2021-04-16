@@ -1,9 +1,5 @@
 # ps-access-log
 
-Prevent Senior - Roteiro do desafio técnico<br>
-Seu objetivo é criar uma aplicação em Java para fazer o upload de um arquivo de logs populando o banco de dados.<br>
-Para isso, será necessário uma interface para o upload do arquivo de logs e uma para inserir/editar/listar/consultar/pesquisar (CRUD).<br>
-
 ## Necessário Java 11
 - Dentro da pasta target executar - java -jar ps-access-log-0.0.1-SNAPSHOT.jar
 - Ou na pata principal mvn spring-boot:run (se o maven suportar java 11 checar mvn-version)
